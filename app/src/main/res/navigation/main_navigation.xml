@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/menu_look">
+    app:startDestination="@id/menu_home">
 
-    <include app:graph="@navigation/look_navigation" />
     <include app:graph="@navigation/home_navigation" />
+    <include app:graph="@navigation/look_navigation" />
     <include app:graph="@navigation/mypage_navigation" />
 
 </navigation>
