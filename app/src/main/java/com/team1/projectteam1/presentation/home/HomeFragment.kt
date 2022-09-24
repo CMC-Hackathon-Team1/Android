@@ -14,6 +14,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.team1.projectteam1.databinding.FragmentHomeBinding
 import com.team1.projectteam1.presentation.MainViewModel
 import com.team1.projectteam1.presentation.home.adapter.CalendarAdapter
@@ -24,9 +25,14 @@ import com.team1.projectteam1.presentation.home.post.PostActivity
 import com.team1.projectteam1.presentation.home.profile.ProfileActivity
 import com.team1.projectteam1.util.calculateCurrentMonthDayCount
 import com.team1.projectteam1.util.calculateCurrentMonthStartDay
+import com.team1.projectteam1.util.printLog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.text.SimpleDateFormat
+import java.util.*
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -38,6 +44,11 @@ class HomeFragment : Fragment() {
     private lateinit var calendarAdapter: CalendarAdapter
     private lateinit var myPostHomeAdapter: MyPostHomeAdapter
     private lateinit var relevantUserAdapter: RelevantUserAdapter
+
+    private val datePicker =
+        MaterialDatePicker.Builder.datePicker()
+            .setTitleText("날짜를 선택하세요")
+            .build()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +73,8 @@ class HomeFragment : Fragment() {
         setPostButton()
         setDate()
         setCalendar()
+        setDatePickerListener()
+        setCalendarSpinnerClick()
         setMyProfileRecyclerView()
         setCalendarRecyclerView()
         setMyPostHomeRecyclerView()
@@ -105,6 +118,34 @@ class HomeFragment : Fragment() {
 
         // 네트워크 통신 예정
         homeViewModel.setCalendar()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setDatePickerListener() {
+        datePicker.addOnPositiveButtonClickListener {
+            val dateStr = convertLongToDate(it)
+            val dateStrList = dateStr.split('-')
+
+            homeViewModel.currentYear = dateStrList[0].toInt()
+            homeViewModel.currentMonth = dateStrList[1].toInt()
+
+            printLog("currentYear : ${homeViewModel.currentYear}, currentMonth : ${homeViewModel.currentMonth}")
+            setDate()
+            setCalendar()
+        }
+    }
+
+    private fun convertLongToDate(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+
+        return format.format(date)
+    }
+
+    private fun setCalendarSpinnerClick() {
+        binding.tvDate.setOnClickListener {
+            datePicker.show(childFragmentManager, "date")
+        }
     }
 
     private fun setMyProfileRecyclerView() {
