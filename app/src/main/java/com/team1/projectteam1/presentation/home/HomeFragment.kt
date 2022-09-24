@@ -79,6 +79,7 @@ class HomeFragment : Fragment() {
         setCalendarRecyclerView()
         setMyPostHomeRecyclerView()
         setRelevantUserRecyclerView()
+        getData()
         observeData()
     }
 
@@ -193,6 +194,10 @@ class HomeFragment : Fragment() {
         }
 
         relevantUserAdapter.submitList(homeViewModel.getRelevantUserDummy().toList())
+    }
+
+    private fun getData() {
+        homeViewModel.getStatistics()
     }
 
     private fun observeData() {
