@@ -14,10 +14,13 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.team1.projectteam1.R
 import com.team1.projectteam1.databinding.ActivityPostBinding
+import com.team1.projectteam1.presentation.MainActivity
+import com.team1.projectteam1.presentation.home.HomeFragment
 
 class PostActivity : AppCompatActivity() {
 
