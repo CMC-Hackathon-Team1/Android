@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/lookFragment"
-        android:name="com.team1.projectteam1.presentation.LookFragment"
+        android:name="com.team1.projectteam1.presentation.look.LookFragment"
         android:label="fragment_look"
         tools:layout="@layout/fragment_look" />
 

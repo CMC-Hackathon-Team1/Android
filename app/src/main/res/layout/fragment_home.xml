@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.HomeFragment">
+    tools:context=".presentation.home.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:id="@+id/tv_description_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical||left"
+                android:gravity="center_vertical|left"
                 android:text="작가 키키님,\n오늘 당신의 하루를 공유해주세요✏️"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_profile" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_write"
+                android:id="@+id/btn_post"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="기록하기"
