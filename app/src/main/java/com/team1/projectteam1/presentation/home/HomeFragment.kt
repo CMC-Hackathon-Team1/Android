@@ -3,7 +3,6 @@ package com.team1.projectteam1.presentation.home
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.team1.projectteam1.databinding.FragmentHomeBinding
 import com.team1.projectteam1.presentation.MainViewModel
 import com.team1.projectteam1.presentation.home.adapter.CalendarAdapter
+import com.team1.projectteam1.presentation.home.adapter.MyPostHomeAdapter
+import com.team1.projectteam1.presentation.home.adapter.MyProfileAdapter
+import com.team1.projectteam1.presentation.home.adapter.RelevantUserAdapter
 import com.team1.projectteam1.presentation.home.post.PostActivity
 import com.team1.projectteam1.presentation.home.profile.ProfileActivity
 import com.team1.projectteam1.util.calculateCurrentMonthDayCount
@@ -31,7 +34,10 @@ class HomeFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
 
+    private lateinit var myProfileAdapter: MyProfileAdapter
     private lateinit var calendarAdapter: CalendarAdapter
+    private lateinit var myPostHomeAdapter: MyPostHomeAdapter
+    private lateinit var relevantUserAdapter: RelevantUserAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,18 +59,14 @@ class HomeFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
-        setProfileButton()
         setPostButton()
         setDate()
         setCalendar()
+        setMyProfileRecyclerView()
         setCalendarRecyclerView()
+        setMyPostHomeRecyclerView()
+        setRelevantUserRecyclerView()
         observeData()
-    }
-
-    private fun setProfileButton() { // 추후 이벤트를 감지해서 액티비티 이동하는 것으로 수정하기
-        binding.btnCreateProfile.setOnClickListener {
-            startActivity(Intent(requireContext(), ProfileActivity::class.java))
-        }
     }
 
     private fun setPostButton() {
@@ -105,6 +107,20 @@ class HomeFragment : Fragment() {
         homeViewModel.setCalendar()
     }
 
+    private fun setMyProfileRecyclerView() {
+        myProfileAdapter = MyProfileAdapter {
+            startActivity(Intent(requireContext(), ProfileActivity::class.java))
+        }
+        binding.rvMyProfile.apply {
+            adapter = myProfileAdapter
+            layoutManager = LinearLayoutManager(requireContext()).also {
+                it.orientation = LinearLayoutManager.HORIZONTAL
+            }
+        }
+
+        myProfileAdapter.submitList(homeViewModel.getMyProfileDummy().toList())
+    }
+
     private fun setCalendarRecyclerView() {
         calendarAdapter = CalendarAdapter()
         binding.rvCalendar.apply {
@@ -114,13 +130,37 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setMyPostHomeRecyclerView() {
+        myPostHomeAdapter = MyPostHomeAdapter()
+        binding.rvMyPost.apply {
+            adapter = myPostHomeAdapter
+            layoutManager = LinearLayoutManager(requireContext()).also {
+                it.orientation = LinearLayoutManager.HORIZONTAL
+            }
+        }
+
+        myPostHomeAdapter.submitList(homeViewModel.getMyPostHomeDummy().toList())
+    }
+
+    private fun setRelevantUserRecyclerView() {
+        relevantUserAdapter = RelevantUserAdapter()
+        binding.rvRelevantUser.apply {
+            adapter = relevantUserAdapter
+            layoutManager = LinearLayoutManager(requireContext()).also {
+                it.orientation = LinearLayoutManager.HORIZONTAL
+            }
+        }
+
+        relevantUserAdapter.submitList(homeViewModel.getRelevantUserDummy().toList())
+    }
+
     private fun observeData() {
         observeCalendar()
     }
 
     private fun observeCalendar() {
         homeViewModel.calendarDataListFlow.flowWithLifecycle(lifecycle).onEach {
-           calendarAdapter.submitList(it)
+            calendarAdapter.submitList(it)
         }.launchIn(lifecycleScope)
     }
 
