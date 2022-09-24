@@ -48,7 +48,7 @@
                     android:id="@+id/item_mypage_rv_like_iv"
                     android:layout_width="15.36dp"
                     android:layout_height="12.42dp"
-                    android:src="@drawable/like_notfill"
+                    android:src="@drawable/like_fill"
                     android:scaleType="fitXY"
                     android:layout_marginEnd="5.82sp"
                     app:layout_constraintTop_toTopOf="parent"
@@ -108,9 +108,9 @@
 
     </androidx.cardview.widget.CardView>
 
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="10dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/item_mypage_cardview_layout"/>-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintTop_toBottomOf="@id/item_mypage_cardview_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

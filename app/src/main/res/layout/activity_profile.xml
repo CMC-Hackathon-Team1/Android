@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/profile_finish"
-        android:textColor="#000000"
+        android:textColor="#58B8A1"
         android:textSize="14sp"
         android:layout_marginEnd="21dp"
         app:layout_constraintTop_toTopOf="@id/title_tv"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_iv"
+        android:id="@+id/profile_background"
         android:layout_width="95dp"
         android:layout_height="95dp"
         android:layout_gravity="center"
@@ -55,7 +55,22 @@
         />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/activie_iv"
+        android:id="@+id/profile_iv"
+        android:layout_width="49.77dp"
+        android:layout_height="52.11dp"
+        android:layout_gravity="center"
+        app:civ_border_overlay="true"
+        app:civ_border_width="0dp"
+        tools:ignore="MissingConstraints"
+        android:src="@drawable/icon_profile_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/profile_background"
+        app:layout_constraintBottom_toBottomOf="@id/profile_background"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/activie_background"
         android:layout_width="31dp"
         android:layout_height="31dp"
         android:layout_gravity="center"
@@ -64,8 +79,23 @@
         tools:ignore="MissingConstraints"
         android:src="#777777"
         android:layout_marginTop="138dp"
-        app:layout_constraintEnd_toEndOf="@id/profile_iv"
-        app:layout_constraintBottom_toBottomOf="@id/profile_iv"
+        app:layout_constraintEnd_toEndOf="@id/profile_background"
+        app:layout_constraintBottom_toBottomOf="@id/profile_background"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/activie_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        app:civ_border_overlay="true"
+        app:civ_border_width="0dp"
+        tools:ignore="MissingConstraints"
+        android:src="@drawable/ic_baseline_camera_alt_24"
+        app:layout_constraintStart_toStartOf="@id/activie_background"
+        app:layout_constraintEnd_toEndOf="@id/activie_background"
+        app:layout_constraintTop_toTopOf="@id/activie_background"
+        app:layout_constraintBottom_toBottomOf="@id/activie_background"
         />
 
     <TextView
@@ -91,7 +121,7 @@
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@id/personas_tv"
         app:layout_constraintBottom_toBottomOf="@id/personas_tv"
-        app:layout_constraintStart_toEndOf="@id/personas_tv"/>
+        app:layout_constraintStart_toEndOf="@id/personas_tv" />
 
     <View
         android:id="@+id/personas_view"

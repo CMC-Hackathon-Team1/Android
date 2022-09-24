@@ -22,9 +22,12 @@
         android:id="@+id/main_bnv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:itemTextColor="@drawable/menu_selector_color"
+        app:itemIconTint="@drawable/menu_selector_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_navigation_menu"
+        app:labelVisibilityMode="unlabeled"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
