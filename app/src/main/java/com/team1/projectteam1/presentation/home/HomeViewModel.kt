@@ -1,6 +1,7 @@
 package com.team1.projectteam1.presentation.home
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.team1.projectteam1.domain.model.Calendar
 import com.team1.projectteam1.domain.model.MyPostHome
 import com.team1.projectteam1.domain.model.MyProfile
@@ -10,6 +11,7 @@ import com.team1.projectteam1.util.printLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -86,5 +88,18 @@ class HomeViewModel @Inject constructor(
             RelevantUser("", "준2"),
             RelevantUser("", "준3"),
         )
+    }
+
+    //
+
+    fun getStatistics() {
+        viewModelScope.launch {
+            val result = userRepository.getUserStatistics()
+            if(result.isSuccessful) {
+                printLog("통계 조회 성공")
+            } else {
+                printLog("통계 조회 실패")
+            }
+        }
     }
 }
