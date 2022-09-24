@@ -26,12 +26,13 @@ import com.team1.projectteam1.presentation.home.profile.ProfileActivity
 import com.team1.projectteam1.util.calculateCurrentMonthDayCount
 import com.team1.projectteam1.util.calculateCurrentMonthStartDay
 import com.team1.projectteam1.util.printLog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
