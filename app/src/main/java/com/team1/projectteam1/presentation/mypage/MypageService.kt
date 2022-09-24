@@ -14,19 +14,22 @@ class MypageService {
         this.mypageView = mypageView
     }
 
-    fun getMyPage(userIdx : Int){
+    fun getMyPage(userIdx : Int, year : Int, month : String){
         val myPageService = getRetrofit().create(MypageRetroInterface::class.java)
 
-        myPageService.getMyPage(userIdx).enqueue(object : retrofit2.Callback<GetMypageResponse> {
+        myPageService.getMyPage(userIdx, year, month).enqueue(object : retrofit2.Callback<GetMypageResponse> {
             override fun onResponse(
                 call: Call<GetMypageResponse>,
                 response: Response<GetMypageResponse>
             ) {
-                Log.d("GetMyPage/SUCCESS", response.toString())
                 val resp : GetMypageResponse = response.body()!!
 
                 when(val code=resp.code) {
-                    1000 -> mypageView.onGetMypageSuccess(code, resp.result!!)
+                    200 -> Log.d("GetMyPageResponse_200", response.errorBody()?.string()!!)
+                    1000 -> {
+                        Log.d("GetMyPage/SUCCESS", response.toString())
+                        mypageView.onGetMypageSuccess(code, resp.result!!)
+                    }
                 }
             }
 
