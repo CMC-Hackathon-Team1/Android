@@ -2,10 +2,7 @@ package com.team1.projectteam1.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.team1.projectteam1.domain.model.Calendar
-import com.team1.projectteam1.domain.model.MyPostHome
-import com.team1.projectteam1.domain.model.MyProfile
-import com.team1.projectteam1.domain.model.RelevantUser
+import com.team1.projectteam1.domain.model.*
 import com.team1.projectteam1.domain.repository.UserRepository
 import com.team1.projectteam1.util.printLog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +26,12 @@ class HomeViewModel @Inject constructor(
 
     private val _calendarDataListFlow = MutableStateFlow<List<Calendar>>(emptyList())
     val calendarDataListFlow: StateFlow<List<Calendar>> = _calendarDataListFlow
+
+    private val _statisticsFlow = MutableStateFlow<Statistics>(Statistics())
+    val statisticsFlow: StateFlow<Statistics> = _statisticsFlow
+
+    private val _myProfileListFlow = MutableStateFlow<List<MyProfile>>(emptyList())
+    val myProfileListFlow: StateFlow<List<MyProfile>> = _myProfileListFlow
 
     fun getDateString() = "${currentYear}년 ${currentMonth}월"
 
@@ -79,6 +82,14 @@ class HomeViewModel @Inject constructor(
         )
     }
 
+    fun getMyPostHome(statistics: Statistics): List<MyPostHome> {
+        return listOf(
+            MyPostHome("\uD83D\uDC9E", "이번달에 ${statistics.likeCount}개의 공감을 받았어요!", 10),
+            MyPostHome("\uD83D\uDCDD", "이번달에 ${statistics.feedCount}개의 글을 작성했어요!", 11),
+            MyPostHome("\uD83D\uDC65", "이번달에 ${statistics.followCount}명 팔로우를 했어요!", 12),
+        )
+    }
+
     fun getRelevantUserDummy(): List<RelevantUser> {
         return listOf(
             RelevantUser("", "지니"),
@@ -95,10 +106,32 @@ class HomeViewModel @Inject constructor(
     fun getStatistics() {
         viewModelScope.launch {
             val result = userRepository.getUserStatistics()
-            if(result.isSuccessful) {
+            if (result.isSuccessful) {
                 printLog("통계 조회 성공")
+                if(result.body() == null) printLog("body null")
+                else printLog("body not null")
+
+                _statisticsFlow.value = result.body()!!.result.mapToStatistics()
             } else {
                 printLog("통계 조회 실패")
+            }
+        }
+    }
+
+    fun getAllProfile() {
+        viewModelScope.launch {
+            val result = userRepository.getAllProfile()
+            if(result.isSuccessful) {
+                printLog("모든 페르소나 프로필 조회 성공")
+                val myProfileList = ArrayList<MyProfile>()
+                val profileList = result.body()!!.result
+                myProfileList.addAll(profileList.map {
+                    MyProfile(it.profileImgUrl, it.profileName, false)
+                })
+                myProfileList.add(MyProfile("", "", true))
+                _myProfileListFlow.value = myProfileList
+            } else {
+                printLog("모든 페르소나 프로필 조회 실패")
             }
         }
     }

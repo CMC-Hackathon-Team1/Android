@@ -15,7 +15,7 @@ class MyPostHomeAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(myPostHome: MyPostHome) { // databinding 수정하기
             binding.tvImageMypost.text = myPostHome.imageText
-            binding.tvMypost.text = "${myPostHome.hashtag} 관련 글을 ${myPostHome.count}개 올리셨어요!"
+            binding.tvMypost.text = myPostHome.hashtag
         }
     }
 
