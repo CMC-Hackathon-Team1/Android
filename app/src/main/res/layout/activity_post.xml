@@ -95,4 +95,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="-1dp" />
 
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="96dp"
+        android:layout_height="47dp"
+        android:text="photo"
+        tools:layout_editor_absoluteX="223dp"
+        tools:layout_editor_absoluteY="174dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
