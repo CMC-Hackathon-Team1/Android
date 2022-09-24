@@ -2,6 +2,9 @@ package com.team1.projectteam1.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.team1.projectteam1.R
 import com.team1.projectteam1.databinding.ActivityMainBinding
 
@@ -11,39 +14,23 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private lateinit var mainNavController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         setupBottomNavigationView()
-
     }
 
 
     // bottomNavigationView
     private fun setupBottomNavigationView() {
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.fragment_look -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, LookFragment())
-                        .commit()
-                    true
-                }
-                R.id.fragment_home -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, HomeFragment())
-                        .commit()
-                    true
-                }
-                R.id.fragment_mypage -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, MypageFragment())
-                        .commit()
-                    true
-                }
-                else -> false
-            }
+        binding.mainBnv.itemIconTintList = null
+
+        supportFragmentManager.findFragmentById(R.id.main_fcv)?.findNavController()?.let {
+            mainNavController = it
         }
+        binding.mainBnv.setupWithNavController(mainNavController)
     }
 }
