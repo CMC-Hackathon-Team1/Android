@@ -26,4 +26,9 @@ class MypageFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
+    private fun initRecyclerView(){
+
+    }
+
 }
