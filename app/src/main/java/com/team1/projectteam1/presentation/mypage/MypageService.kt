@@ -22,14 +22,12 @@ class MypageService {
                 call: Call<GetMypageResponse>,
                 response: Response<GetMypageResponse>
             ) {
+                Log.d("GetMyPage/SUCCESS", response.toString())
                 val resp : GetMypageResponse = response.body()!!
 
                 when(val code=resp.code) {
                     200 -> Log.d("GetMyPageResponse_200", response.errorBody()?.string()!!)
-                    1000 -> {
-                        Log.d("GetMyPage/SUCCESS", response.toString())
-                        mypageView.onGetMypageSuccess(code, resp.result!!)
-                    }
+                    1000 -> mypageView.onGetMypageSuccess(code, resp.result!!)
                 }
             }
 
