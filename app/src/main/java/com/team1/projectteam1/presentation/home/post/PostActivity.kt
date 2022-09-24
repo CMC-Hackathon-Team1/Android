@@ -9,9 +9,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -39,6 +38,8 @@ class PostActivity : AppCompatActivity() {
     val FLAG_REQ_CAMERA = 101
     val FLAG_REA_STORAGE = 102
 
+    private val postViewModel: PostViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -46,15 +47,20 @@ class PostActivity : AppCompatActivity() {
         if(checkPermission(STORAGE_PERMISSION,PERM_STORAGE)){
             setViews()
         }
-        val button = findViewById<Button>(R.id.btn_ctgin)
+        val button = findViewById<ImageView>(R.id.btn_ctgin)
         button.setOnClickListener{
             val bottomSheet = BottomSheet()
             bottomSheet.show(supportFragmentManager,bottomSheet.tag)
 
         }
 
+        val textViewCategory = findViewById<TextView>(R.id.textView_category)
 
+        postViewModel.selectedCategory.observe(this){
+            textViewCategory.text = it
+        }
     }
+
     private fun setViews() {
         //카메라 버튼을 클릭하면
         binding.btnCamera.setOnClickListener {
