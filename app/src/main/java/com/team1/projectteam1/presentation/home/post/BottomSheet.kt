@@ -15,4 +15,5 @@ class BottomSheet : BottomSheetDialogFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_category,container)
     }
+
 }
