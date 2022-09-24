@@ -5,11 +5,17 @@ import com.team1.projectteam1.domain.model.Calendar
 import com.team1.projectteam1.domain.model.MyPostHome
 import com.team1.projectteam1.domain.model.MyProfile
 import com.team1.projectteam1.domain.model.RelevantUser
+import com.team1.projectteam1.domain.repository.UserRepository
 import com.team1.projectteam1.util.printLog
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val userRepository: UserRepository
+) : ViewModel() {
 
     var currentYear: Int = 2022
     var currentMonth: Int = 9
