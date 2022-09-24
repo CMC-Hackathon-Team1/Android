@@ -1,8 +1,8 @@
 package com.team1.projectteam1.data.model
 
-data class StatisticsResponse(
+data class AllProfileResponse(
     val code: Int,
     val isSuccess: Boolean,
     val message: String,
-    val result: ResultResponse
+    val result: List<ProfileResult>
 )

@@ -1,5 +1,6 @@
 package com.team1.projectteam1.data.api
 
+import com.team1.projectteam1.data.model.AllProfileResponse
 import com.team1.projectteam1.data.model.StatisticsResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -10,4 +11,9 @@ interface UserService {
     suspend fun getStatistics(
         @Path("profileId") profileId: Int
     ): Response<StatisticsResponse>
+
+    @GET("users/{profileId}/profile")
+    suspend fun getAllProfile(
+        @Path("profileId") profileId: Int
+    ): Response<AllProfileResponse>
 }

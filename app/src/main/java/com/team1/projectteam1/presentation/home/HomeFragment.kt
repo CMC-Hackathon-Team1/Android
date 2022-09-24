@@ -160,7 +160,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        myProfileAdapter.submitList(homeViewModel.getMyProfileDummy().toList())
+        //myProfileAdapter.submitList(homeViewModel.getMyProfileDummy().toList())
     }
 
     private fun setCalendarRecyclerView() {
@@ -181,7 +181,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        myPostHomeAdapter.submitList(homeViewModel.getMyPostHomeDummy().toList())
+        //myPostHomeAdapter.submitList(homeViewModel.getMyPostHomeDummy().toList())
     }
 
     private fun setRelevantUserRecyclerView() {
@@ -198,15 +198,30 @@ class HomeFragment : Fragment() {
 
     private fun getData() {
         homeViewModel.getStatistics()
+        homeViewModel.getAllProfile()
     }
 
     private fun observeData() {
         observeCalendar()
+        observeStatistics()
+        observeAllProfile()
     }
 
     private fun observeCalendar() {
         homeViewModel.calendarDataListFlow.flowWithLifecycle(lifecycle).onEach {
             calendarAdapter.submitList(it)
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun observeStatistics() {
+        homeViewModel.statisticsFlow.flowWithLifecycle(lifecycle).onEach {
+            myPostHomeAdapter.submitList(homeViewModel.getMyPostHome(it).toList())
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun observeAllProfile() {
+        homeViewModel.myProfileListFlow.flowWithLifecycle(lifecycle).onEach {
+            myProfileAdapter.submitList(it.toList())
         }.launchIn(lifecycleScope)
     }
 
