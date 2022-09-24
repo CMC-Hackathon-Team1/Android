@@ -30,7 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
+        viewBinding true
         dataBinding true
     }
 }
@@ -73,4 +75,12 @@ dependencies {
 
     // paging
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    //circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //BottomSheetDialog
+    implementation 'com.google.android.material:material:1.2.1'
+
+
 }

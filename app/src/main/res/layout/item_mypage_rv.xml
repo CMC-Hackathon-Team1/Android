@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_mypage_cardview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardPreventCornerOverlap="true"
+        app:contentPadding="17sp"
+        android:orientation="vertical"
+        app:cardElevation="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_mypage_rv_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:id="@+id/item_mypage_rv_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2022/09/24"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/item_mypage_rv_like_iv"
+                    android:layout_width="15.36dp"
+                    android:layout_height="12.42dp"
+                    android:src="@drawable/like_fill"
+                    android:scaleType="fitXY"
+                    android:layout_marginEnd="5.82sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/item_mypage_rv_like_cnt_tv"/>
+
+                <TextView
+                    android:id="@+id/item_mypage_rv_like_cnt_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    android:layout_marginEnd="14.15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/item_mypage_rv_more_iv"/>
+
+                <ImageView
+                    android:id="@+id/item_mypage_rv_more_iv"
+                    android:layout_width="11.69dp"
+                    android:layout_height="2.67dp"
+                    android:src="@drawable/more_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/item_mypage_rv_category_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#시 #에세이"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="12dp"/>
+
+
+            <ImageView
+                android:id="@+id/item_mypage_rv_content_img_iv"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@color/black"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:id="@+id/item_mypage_rv_content_text_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="키키 운동갔다옴"
+                android:textSize="14dp"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintTop_toBottomOf="@id/item_mypage_cardview_layout"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
