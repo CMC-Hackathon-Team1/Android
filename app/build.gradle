@@ -77,4 +77,7 @@ dependencies {
 
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //BottomSheetDialog
+    implementation 'com.google.android.material:material:1.2.1'
 }
