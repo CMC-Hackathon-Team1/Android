@@ -43,5 +43,11 @@ class ProfileActivity : AppCompatActivity() {
             readImage.launch("image/*")
         }
 
+        binding.finishTv.setOnClickListener {
+            val pesonas = binding.personasEt.toString()
+            val nickname = binding.nicknameEt.toString()
+            val oneline = binding.onelineEt.toString()
+        }
+
     }
 }
