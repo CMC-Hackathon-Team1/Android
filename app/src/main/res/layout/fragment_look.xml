@@ -12,24 +12,23 @@
 
         <ImageView
             android:id="@+id/look_iv"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:src="@drawable/phone_display"
-            android:layout_marginTop="150dp"
-            android:paddingBottom="50dp"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/look_pic"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="50dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="업데이트를 준비중이에요!"
+            android:text="업데이트를 준비중이에요 😣"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="#58B8A1"
-            android:layout_marginBottom="300dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/look_iv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
