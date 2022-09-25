@@ -19,13 +19,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <Button
         android:id="@+id/post_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="21dp"
         android:text="작성"
-        android:textColor="#58B8A1"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/post_title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +53,6 @@
         android:layout_marginTop="17dp"
         android:layout_marginBottom="17dp"
         android:height="50dp"
-        android:gravity="center"
         android:text="카테고리"
         android:textAlignment="textStart"
         android:textColor="@color/black"

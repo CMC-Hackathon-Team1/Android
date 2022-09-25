@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.activity.viewModels
@@ -18,8 +19,13 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.team1.projectteam1.R
 import com.team1.projectteam1.databinding.ActivityPostBinding
+import com.team1.projectteam1.di.NetworkModule_ProvideUserServiceFactory.create
+import com.team1.projectteam1.domain.data.PostRetroInterface
+import com.team1.projectteam1.domain.model.ApiClient.getRetrofit
 import com.team1.projectteam1.presentation.MainActivity
 import com.team1.projectteam1.presentation.home.HomeFragment
+import okhttp3.MultipartBody.Part.Companion.create
+import retrofit2.*
 
 class PostActivity : AppCompatActivity() {
 
@@ -39,7 +45,7 @@ class PostActivity : AppCompatActivity() {
     val FLAG_REA_STORAGE = 102
 
     private val postViewModel: PostViewModel by viewModels()
-
+    val api = getRetrofit().create(PostRetroInterface::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -51,14 +57,45 @@ class PostActivity : AppCompatActivity() {
         button.setOnClickListener{
             val bottomSheet = BottomSheet()
             bottomSheet.show(supportFragmentManager,bottomSheet.tag)
-
         }
-
         val textViewCategory = findViewById<TextView>(R.id.textView_category)
 
         postViewModel.selectedCategory.observe(this){
             textViewCategory.text = it
         }
+        binding.postDone.setOnClickListener {
+            var isPrivate = "private"
+            if(binding.checkBox.isChecked == false){
+                isPrivate = "active"
+            }
+
+            val data = PostModel(
+                textViewCategory.text.toString(),
+                binding.editTextTag.text.toString(),
+                "예전의 어린 나는 가슴 속에 나침반이 하나 있었다. 그래서 어디로 가야 할지 모를 때 가슴 속의 나침반이 나의 길로 나를 이끌었다. 언제부터인가 나는 돈에 집착하기 시작했고 가슴 속의 나침반은 어이상 작동하지 않았다. 몸에 쇳가루가 많이 묻으면 나침반은 돌지 않는법. 나의 순결한 나침반이 우울증을 앓던 날 나는 그렇게 나의 길을 잃었다. \n" +
+                        "박광수, <참 서툰 사람들>",
+                isPrivate,
+                "https://hackathon-node.s3.ap-northeast-2.amazonaws.com/%EB%8F%85%EC%84%9C.png"
+                )
+
+//            Log.d("log", data.toString())
+                api.post_posting(body = data).enqueue(object : Callback<PostResult> {
+                override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
+                    Log.d("log", data.toString())
+                    Log.d("log", response.code().toString())
+                    Log.d("log", response.body().toString())
+
+                }
+
+                override fun onFailure(call: Call<PostResult>, t: Throwable) {
+                    // 실패
+                    Log.d("err",t.message.toString())
+                    Log.d("err","fail")
+                }
+            })
+        }
+
+
     }
 
     private fun setViews() {
