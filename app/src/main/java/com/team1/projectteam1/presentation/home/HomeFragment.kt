@@ -165,7 +165,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setCalendarRecyclerView() {
-        calendarAdapter = CalendarAdapter()
+        calendarAdapter = CalendarAdapter{ dayStr ->
+            printLog("selected day : ${dayStr}")
+            // BottomSheet 띄우기
+        }
         binding.rvCalendar.apply {
             adapter = calendarAdapter
             layoutManager = GridLayoutManager(requireContext(), 7)
