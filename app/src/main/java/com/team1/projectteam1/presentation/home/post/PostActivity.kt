@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -66,6 +67,7 @@ class PostActivity : AppCompatActivity() {
         binding.btnCamera.setOnClickListener {
             //카메라 열기
             openCamera()
+            binding.btnCamera.visibility = View.INVISIBLE
         }
     }
 

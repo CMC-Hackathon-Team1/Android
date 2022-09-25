@@ -69,7 +69,12 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
 
                     profile = Profile(3, personaId, binding.nicknameEt.toString(), binding.onelineEt.toString(), binding.profileIv.toString() )
                     getProfileData()
-                    HomeFragment()
+                    finish()
+
+                    // 1) splash -> profile -> home : homeFragment()
+                    // 2) home -> profile : finish()
+
+
 
                 } else {
                     Toast.makeText(applicationContext, "한줄소개는 30자를 넘길 수 없습니다", Toast.LENGTH_SHORT).show()
@@ -93,7 +98,7 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
     override fun onInputProfileSuccess(code: Int, result: CreateProfileResult) {
         when(code){
             1000 ->{
-                HomeFragment()
+                finish()
             }
         }
     }
