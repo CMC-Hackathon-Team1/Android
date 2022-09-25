@@ -33,7 +33,28 @@ class HomeViewModel @Inject constructor(
     private val _myProfileListFlow = MutableStateFlow<List<MyProfile>>(emptyList())
     val myProfileListFlow: StateFlow<List<MyProfile>> = _myProfileListFlow
 
+    var map = mutableMapOf<Int, String>()
+
     fun getDateString() = "${currentYear}년 ${currentMonth}월"
+
+    fun getCalendarData() {
+        viewModelScope.launch {
+            val month = if(currentMonth <= 9) "0${currentMonth}" else "$currentMonth"
+            val result = userRepository.getCalendarData(currentYear.toString(), month)
+            map.clear()
+            if(result.isSuccessful) {
+                printLog("달력 데이터 조회 성공")
+                result.body()!!.result.forEach {
+                    val date = it.date.substring(8, 10).toInt()
+                    map[date] = it.ImgUrl
+                }
+                printLog("${map}")
+                setCalendar()
+            } else {
+                printLog("달력 데이터 조회 실패")
+            }
+        }
+    }
 
     fun setCalendar() {
         var preDayCount = if (startDay == 7) 0 else startDay
@@ -43,9 +64,15 @@ class HomeViewModel @Inject constructor(
         val calendarList = mutableListOf<Calendar>()
 
         (1..dayCount).forEach {
-            calendarList.add(
-                Calendar(it.toString(), false, true)
-            )
+            if(map[it] != null){
+                calendarList.add(
+                    Calendar(it.toString(), true, true, map[it]!!)
+                )
+            } else {
+                calendarList.add(
+                    Calendar(it.toString(), false, true)
+                )
+            }
         }
 
         (1..preDayCount).forEach {

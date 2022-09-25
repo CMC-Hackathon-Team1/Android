@@ -118,7 +118,7 @@ class HomeFragment : Fragment() {
         }
 
         // 네트워크 통신 예정
-        homeViewModel.setCalendar()
+        homeViewModel.getCalendarData()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -132,6 +132,7 @@ class HomeFragment : Fragment() {
 
             printLog("currentYear : ${homeViewModel.currentYear}, currentMonth : ${homeViewModel.currentMonth}")
             setDate()
+
             setCalendar()
         }
     }

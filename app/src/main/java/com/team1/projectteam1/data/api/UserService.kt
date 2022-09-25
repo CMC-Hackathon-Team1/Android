@@ -1,10 +1,12 @@
 package com.team1.projectteam1.data.api
 
 import com.team1.projectteam1.data.model.AllProfileResponse
+import com.team1.projectteam1.data.model.CalendarDataResponse
 import com.team1.projectteam1.data.model.StatisticsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface UserService {
     @GET("users/{profileId}/profile/statistics")
@@ -16,4 +18,10 @@ interface UserService {
     suspend fun getAllProfile(
         @Path("profileId") profileId: Int
     ): Response<AllProfileResponse>
+
+    @GET("calendars")
+    suspend fun getCalendarData(
+        @Query("year") year: String,
+        @Query("month") month: String
+    ): Response<CalendarDataResponse>
 }

@@ -2,6 +2,7 @@ package com.team1.projectteam1.data.repository
 
 import com.team1.projectteam1.data.api.UserService
 import com.team1.projectteam1.data.model.AllProfileResponse
+import com.team1.projectteam1.data.model.CalendarDataResponse
 import com.team1.projectteam1.data.model.StatisticsResponse
 import com.team1.projectteam1.domain.repository.UserRepository
 import retrofit2.Response
@@ -16,5 +17,9 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getAllProfile(): Response<AllProfileResponse> {
         return userService.getAllProfile(1)
+    }
+
+    override suspend fun getCalendarData(year: String, month: String): Response<CalendarDataResponse> {
+        return userService.getCalendarData(year, month)
     }
 }

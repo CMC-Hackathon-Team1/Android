@@ -3,9 +3,11 @@ package com.team1.projectteam1.presentation.home.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.team1.projectteam1.databinding.ItemCalendarBinding
 import com.team1.projectteam1.domain.model.Calendar
 
@@ -19,6 +21,14 @@ class CalendarAdapter : ListAdapter<Calendar, CalendarAdapter.CalendarViewHolder
             binding.calendar = calendar
             if (calendar.isCurrentMonth) {
                 binding.tvDay.visibility = View.VISIBLE
+                if (calendar.isExist) {
+                    binding.sivCalendar.isVisible = true
+                    Glide.with(binding.root.context)
+                        .load(calendar.imageUrl)
+                        .into(binding.sivCalendar)
+                } else {
+                    binding.sivCalendar.isVisible = false
+                }
             } else {
                 binding.tvDay.visibility = View.INVISIBLE
             }
