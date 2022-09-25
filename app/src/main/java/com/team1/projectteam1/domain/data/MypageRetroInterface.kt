@@ -11,6 +11,6 @@ interface MypageRetroInterface {
     fun getMyPage(
         @Path("profileId") profileId : Int,
         @Query("year") year : Int,
-        @Query("month") month : String
+        @Query("month") month : Int
     ) : retrofit2.Call<GetMypageResponse>
 }
