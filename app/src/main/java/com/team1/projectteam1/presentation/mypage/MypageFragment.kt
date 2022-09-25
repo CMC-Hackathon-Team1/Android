@@ -27,8 +27,6 @@ class MypageFragment : Fragment(), MypageView {
         _binding = FragmentMypageBinding.inflate(inflater, container, false)
 //        getMyPageData()
 
-        binding.mypageProfilNameTv.text = "아크"
-        binding.mypageProfilTagsTv.text = "#개발자 #기획 #디자인"
 
         initRecyclerView()
         return binding.root
