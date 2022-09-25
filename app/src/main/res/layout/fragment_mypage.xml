@@ -58,7 +58,7 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_marginEnd="20dp"
-                    android:src="@color/black" />
+                    android:src="@drawable/person_gray"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/mypage_name_tag_layout"

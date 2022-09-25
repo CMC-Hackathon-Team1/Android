@@ -48,6 +48,7 @@ class MypageRVAdapter(private val writeList : ArrayList<GetMypageResult>) : Recy
             binding.itemMypageRvDateTv.text = write.createdAt
             binding.itemMypageRvCategoryTv.text = write.hashTagStr
             binding.itemMypageRvLikeCntTv.text = write.likeCount
+            if (write.profileImgUrl == "") binding.itemMypageRvContentImgIv.visibility = View.GONE
 //            if (write.profileImgUrl != null) getImg(write.profileImgUrl, binding.itemMypageRvContentImgIv)
 //            else binding.itemMypageRvContentImgIv.visibility = View.GONE
 //            if (write.img!=null) binding.itemMypageRvContentImgIv.setImageResource(write.img!!)

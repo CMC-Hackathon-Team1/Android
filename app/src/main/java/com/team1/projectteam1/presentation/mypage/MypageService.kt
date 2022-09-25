@@ -14,7 +14,7 @@ class MypageService {
         this.mypageView = mypageView
     }
 
-    fun getMyPage(userIdx : Int, year : Int, month : String){
+    fun getMyPage(userIdx : Int, year : Int, month : Int){
         val myPageService = getRetrofit().create(MypageRetroInterface::class.java)
 
         myPageService.getMyPage(userIdx, year, month).enqueue(object : retrofit2.Callback<GetMypageResponse> {
