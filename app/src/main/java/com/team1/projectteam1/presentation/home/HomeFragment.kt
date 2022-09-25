@@ -29,6 +29,7 @@ import com.team1.projectteam1.util.printLog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,7 +39,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     private lateinit var myProfileAdapter: MyProfileAdapter
     private lateinit var calendarAdapter: CalendarAdapter
@@ -168,6 +169,13 @@ class HomeFragment : Fragment() {
         calendarAdapter = CalendarAdapter{ dayStr ->
             printLog("selected day : ${dayStr}")
             // BottomSheet 띄우기
+            homeViewModel.selectedDay = dayStr
+            val dayDetailBottomSheetDialogFragment = DayDetailBottomSheetDialogFragment().apply {
+                isCancelable = false
+            }
+
+            homeViewModel.getDayDetails()
+            dayDetailBottomSheetDialogFragment.show(childFragmentManager, "DayDetailBottomSheet")
         }
         binding.rvCalendar.apply {
             adapter = calendarAdapter
@@ -201,8 +209,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun getData() {
-        homeViewModel.getStatistics()
-        homeViewModel.getAllProfile()
+        lifecycleScope.launch {
+            launch {
+                homeViewModel.getStatistics()
+            }
+            launch {
+                homeViewModel.getAllProfile()
+            }
+        }
     }
 
     private fun observeData() {
