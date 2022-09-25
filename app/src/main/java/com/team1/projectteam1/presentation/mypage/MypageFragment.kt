@@ -1,5 +1,6 @@
 package com.team1.projectteam1.presentation.mypage
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,8 @@ import com.team1.projectteam1.R
 import com.team1.projectteam1.databinding.FragmentHomeBinding
 import com.team1.projectteam1.databinding.FragmentMypageBinding
 import com.team1.projectteam1.domain.model.Write
+import com.team1.projectteam1.presentation.MainActivity
+import com.team1.projectteam1.presentation.home.post.EditActivity
 
 class MypageFragment : Fragment(), MypageView {
     private var _binding: FragmentMypageBinding? = null
@@ -27,8 +30,6 @@ class MypageFragment : Fragment(), MypageView {
         _binding = FragmentMypageBinding.inflate(inflater, container, false)
 //        getMyPageData()
 
-        binding.mypageProfilNameTv.text = "아크"
-        binding.mypageProfilTagsTv.text = "#개발자 #기획 #디자인"
 
         initRecyclerView()
         return binding.root
@@ -44,6 +45,15 @@ class MypageFragment : Fragment(), MypageView {
         val mypageRVAdapter = MypageRVAdapter(writeList)
         binding.mypageWriteRv.adapter = mypageRVAdapter
         binding.mypageWriteRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        mypageRVAdapter.setMyItemClickListener(object : MypageRVAdapter.ItemClickListener {
+            override fun onItemClick(resule: GetMypageResult) {
+                val intent = Intent(context as MainActivity, EditActivity()::class.java)
+                startActivity(intent)
+
+            }
+        })
+
     }
 
     private fun getMyPageData(){

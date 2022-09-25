@@ -41,6 +41,7 @@
         <activity
             android:name=".presentation.home.post.PostActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".presentation.home.post.EditActivity"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 

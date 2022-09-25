@@ -20,7 +20,7 @@ class MypageRVAdapter(private val writeList : ArrayList<GetMypageResult>) : Recy
     lateinit var bitmap : Bitmap
 
     interface ItemClickListener {
-        fun onItemClick(write: Write)
+        fun onItemClick(resule: GetMypageResult)
     }
     private lateinit var mItemClickListener : ItemClickListener
 
@@ -36,9 +36,9 @@ class MypageRVAdapter(private val writeList : ArrayList<GetMypageResult>) : Recy
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(writeList[position])
-//        holder.itemView.setOnClickListener {
-//            mItemClickListener.onItemClick(writeList[position])
-//        }
+        holder.itemView.setOnClickListener {
+            mItemClickListener.onItemClick(writeList[position])
+        }
     }
 
     override fun getItemCount(): Int = writeList.size
