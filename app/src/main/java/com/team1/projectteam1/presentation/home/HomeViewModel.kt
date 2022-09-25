@@ -22,6 +22,8 @@ class HomeViewModel @Inject constructor(
     var startDay = 0
     var preMonthDayCount = 0
 
+    var selectedDay = "1"
+
     private var dayList = listOf("토", "금", "목", "수", "화", "월", "일")
 
     private val _calendarDataListFlow = MutableStateFlow<List<Calendar>>(emptyList())
@@ -33,16 +35,19 @@ class HomeViewModel @Inject constructor(
     private val _myProfileListFlow = MutableStateFlow<List<MyProfile>>(emptyList())
     val myProfileListFlow: StateFlow<List<MyProfile>> = _myProfileListFlow
 
+    private val _dayDetailListFlow = MutableStateFlow<List<DayDetail>>(emptyList())
+    val dayDetailListFlow: StateFlow<List<DayDetail>> = _dayDetailListFlow
+
     var map = mutableMapOf<Int, String>()
 
     fun getDateString() = "${currentYear}년 ${currentMonth}월"
 
     fun getCalendarData() {
         viewModelScope.launch {
-            val month = if(currentMonth <= 9) "0${currentMonth}" else "$currentMonth"
+            val month = if (currentMonth <= 9) "0${currentMonth}" else "$currentMonth"
             val result = userRepository.getCalendarData(currentYear.toString(), month)
             map.clear()
-            if(result.isSuccessful) {
+            if (result.isSuccessful) {
                 printLog("달력 데이터 조회 성공")
                 result.body()!!.result.forEach {
                     val date = it.date.substring(8, 10).toInt()
@@ -64,7 +69,7 @@ class HomeViewModel @Inject constructor(
         val calendarList = mutableListOf<Calendar>()
 
         (1..dayCount).forEach {
-            if(map[it] != null){
+            if (map[it] != null) {
                 calendarList.add(
                     Calendar(it.toString(), true, true, map[it]!!)
                 )
@@ -135,7 +140,7 @@ class HomeViewModel @Inject constructor(
             val result = userRepository.getUserStatistics()
             if (result.isSuccessful) {
                 printLog("통계 조회 성공")
-                if(result.body() == null) printLog("body null")
+                if (result.body() == null) printLog("body null")
                 else printLog("body not null")
 
                 _statisticsFlow.value = result.body()!!.result.mapToStatistics()
@@ -148,7 +153,7 @@ class HomeViewModel @Inject constructor(
     fun getAllProfile() {
         viewModelScope.launch {
             val result = userRepository.getAllProfile()
-            if(result.isSuccessful) {
+            if (result.isSuccessful) {
                 printLog("모든 페르소나 프로필 조회 성공")
                 val myProfileList = ArrayList<MyProfile>()
                 val profileList = result.body()!!.result
@@ -159,6 +164,28 @@ class HomeViewModel @Inject constructor(
                 _myProfileListFlow.value = myProfileList
             } else {
                 printLog("모든 페르소나 프로필 조회 실패")
+            }
+        }
+    }
+
+    fun getDayDetails() {
+        viewModelScope.launch {
+            val month = if (currentMonth <= 9) "0${currentMonth}" else "$currentMonth"
+            val day = if(selectedDay.toInt() <= 9) "0${selectedDay}" else "$selectedDay"
+            val result = userRepository.getDayDetials(
+                currentYear.toString(),
+                month,
+                day
+            )
+            printLog("daydetail : ${currentYear} ${month} ${day}")
+            if (result.isSuccessful) {
+                printLog("일 상세 데이터 리스트 조회 성공")
+                val dayDetailsList = result.body()!!.result.map {
+                    it.mapToDayDetail()
+                }
+                _dayDetailListFlow.value = dayDetailsList
+            } else {
+                printLog("일 상세 데이터 리스트 조회 실패")
             }
         }
     }
