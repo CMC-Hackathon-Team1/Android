@@ -6,8 +6,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavDirections
 import com.bumptech.glide.Glide
 import com.team1.projectteam1.databinding.ActivityProfileBinding
+import com.team1.projectteam1.presentation.home.HomeFragment
 
 
 class ProfileActivity : AppCompatActivity(), ProfileView {
@@ -18,6 +20,7 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
 
     lateinit var profile: Profile
     var personaId: Int = 0
+    lateinit var string: String
 
     private val permissionList = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
     private val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
@@ -66,7 +69,7 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
 
                     profile = Profile(3, personaId, binding.nicknameEt.toString(), binding.onelineEt.toString(), binding.profileIv.toString() )
                     getProfileData()
-                    finish()
+                    HomeFragment()
 
                 } else {
                     Toast.makeText(applicationContext, "한줄소개는 30자를 넘길 수 없습니다", Toast.LENGTH_SHORT).show()
@@ -90,7 +93,7 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
     override fun onInputProfileSuccess(code: Int, result: CreateProfileResult) {
         when(code){
             1000 ->{
-                finish()
+                HomeFragment()
             }
         }
     }

@@ -16,4 +16,6 @@
     <string name="profile_nickname_ex">키키</string>
     <string name="profile_oneline">한줄소개</string>
     <string name="profile_oneline_ex">최대 30자까지 가능합니다.</string>
+
+    <string name="splash_login">로그인</string>
 </resources>

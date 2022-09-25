@@ -9,4 +9,10 @@
     <include app:graph="@navigation/look_navigation" />
     <include app:graph="@navigation/mypage_navigation" />
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.team1.projectteam1.presentation.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+
 </navigation>
