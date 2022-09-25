@@ -1,6 +1,7 @@
 package com.team1.projectteam1.presentation.home.profile
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -9,10 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavDirections
 import com.bumptech.glide.Glide
 import com.team1.projectteam1.databinding.ActivityProfileBinding
+import com.team1.projectteam1.presentation.MainActivity
 import com.team1.projectteam1.presentation.home.HomeFragment
 
 
-class ProfileActivity : AppCompatActivity(), ProfileView {
+class ProfileActivity : AppCompatActivity(){
 
     private val binding: ActivityProfileBinding by lazy {
         ActivityProfileBinding.inflate(layoutInflater)
@@ -57,22 +59,25 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
             if( binding.personasEt.length()!=0 && binding.nicknameEt.length()!=0 && binding.onelineEt.length()!=0) {
                 if (binding.onelineEt.length() <= 30) {
 
-                    if (binding.personasEt.toString() == "기획자") {
-                        personaId = 1
-                    }
-                    else if(binding.personasEt.toString() == "디자이너") {
-                        personaId = 2
-                    }
-                    else if(binding.personasEt.toString() == "개발자") {
-                        personaId = 3
-                    }
-
-                    profile = Profile(3, personaId, binding.nicknameEt.toString(), binding.onelineEt.toString(), binding.profileIv.toString() )
-                    getProfileData()
-                    finish()
+//                    if (binding.personasEt.toString() == "기획자") {
+//                        personaId = 1
+//                    }
+//                    else if(binding.personasEt.toString() == "디자이너") {
+//                        personaId = 2
+//                    }
+//                    else if(binding.personasEt.toString() == "개발자") {
+//                        personaId = 3
+//                    }
+//
+//                    profile = Profile(3, personaId, binding.nicknameEt.toString(), binding.onelineEt.toString(), binding.profileIv.toString() )
+//                    getProfileData()
+//                    finish()
 
                     // 1) splash -> profile -> home : homeFragment()
                     // 2) home -> profile : finish()
+
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
 
 
 
@@ -87,19 +92,19 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
 
     }
 
-    private fun getProfileData(){
-        val profileService = ProfileService()
-        profileService.setProfileView(this)
-
-        profileService.createProfileView()
-
-    }
-
-    override fun onInputProfileSuccess(code: Int, result: CreateProfileResult) {
-        when(code){
-            1000 ->{
-                finish()
-            }
-        }
-    }
+//    private fun getProfileData(){
+//        val profileService = ProfileService()
+//        profileService.setProfileView(this)
+//
+//        profileService.createProfileView()
+//
+//    }
+//
+//    override fun onInputProfileSuccess(code: Int, result: CreateProfileResult) {
+//        when(code){
+//            1000 ->{
+//                finish()
+//            }
+//        }
+//    }
 }
