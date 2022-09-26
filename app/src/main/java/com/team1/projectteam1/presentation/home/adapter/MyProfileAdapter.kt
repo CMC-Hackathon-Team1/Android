@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.team1.projectteam1.databinding.ItemMyProfileAddBinding
 import com.team1.projectteam1.databinding.ItemMyProfileBinding
 import com.team1.projectteam1.domain.model.MyProfile
@@ -18,6 +19,10 @@ class MyProfileAdapter(private val addProfileClick: () -> Unit) :
         fun bind(myProfile: MyProfile, position: Int) { // databinding 수정하기
             binding.tvRelevantUser.text = myProfile.name
             binding.viewLeft.isVisible = position == 0
+
+            Glide.with(binding.root.context)
+                .load(myProfile.profileImage)
+                .into(binding.ivMyProfile)
         }
     }
 

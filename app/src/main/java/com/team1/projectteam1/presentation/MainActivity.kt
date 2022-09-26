@@ -10,8 +10,9 @@ import com.team1.projectteam1.R
 import com.team1.projectteam1.databinding.ActivityMainBinding
 import com.team1.projectteam1.util.calculateCurrentMonth
 import com.team1.projectteam1.util.calculateCurrentYear
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)

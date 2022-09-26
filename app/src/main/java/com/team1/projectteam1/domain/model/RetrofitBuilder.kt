@@ -5,7 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.BitSet
 
 object ApiClient {
-    private const val BASE_URL = "baseurl"
+
+    private const val BASE_URL = "http://3.36.187.9:5050/api/"
 
     fun getRetrofit() : Retrofit {
         val retrofit = Retrofit.Builder()

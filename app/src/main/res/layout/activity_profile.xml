@@ -3,7 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navHost"
+    android:name = "androidx.navigation.fragment.NavHostFragment"
+    app:defaultNavHost = "true"
+    app:navGraph = "@navigation/home_navigation">
 
     <ImageView
         android:id="@+id/arrow_iv"
